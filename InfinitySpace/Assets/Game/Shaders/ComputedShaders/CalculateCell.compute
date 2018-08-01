@@ -1,0 +1,16 @@
+﻿#pragma kernel Calculate
+#include "Assets/Game/Shaders/Tools.cginc"
+
+RWStructuredBuffer<int> CellBuffer;
+
+int PosX;
+int PosY;
+
+int CellSize;
+int Width;
+
+[numthreads(1, 1, 1)]
+void Calculate(uint id: SV_DispatchThreadID)
+{
+    CellBuffer[id] = CalculateRating(Width, CellSize, PosX, PosY, id);
+}

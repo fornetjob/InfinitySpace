@@ -1,0 +1,47 @@
+﻿#pragma kernel Sort
+
+#include "Assets/Game/Shaders/Tools.cginc"
+
+RWStructuredBuffer<int> Values;
+RWStructuredBuffer<int> DistanceBuffer;
+RWStructuredBuffer<int3> PosBuffer;
+
+int PosX;
+int PosY;
+
+int SortLength;
+
+uint PlayerRating;
+
+[numthreads(1, 1, 1)]
+void Sort(uint index: SV_DispatchThreadID)
+{
+    int2 pos = Spiral(index);
+
+    int x = PosX + pos.x;
+    int y = PosY + pos.y;
+
+    uint rating = CalcRating(x, y);
+
+    int ratingDistance = abs(PlayerRating - rating);
+
+    if (Values[0] > ratingDistance)
+    {
+        DistanceBuffer[Values[1]] = ratingDistance;
+        PosBuffer[Values[1]] = int3(x, y, rating);
+
+        Values[0] = 0;
+        Values[1] = -1;
+
+        for (int i = 0; i < 20; i++)
+        {
+            int dist = DistanceBuffer[i];
+
+            if (dist > Values[0])
+            {
+                Values[0] = dist;
+                Values[1] = i;
+            }
+        }
+    }
+}

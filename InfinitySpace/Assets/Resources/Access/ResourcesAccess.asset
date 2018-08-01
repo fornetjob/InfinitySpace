@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67981f709bac7a40903bed8e5b6042b, type: 3}
+  m_Name: ResourcesAccess
+  m_EditorClassIdentifier: 
+  CalculateShader: {fileID: 7200000, guid: 60164cc73b117be42b0994c3963d9d97, type: 3}
+  SortShader: {fileID: 7200000, guid: 164eada4447c137458c0b75380ee374f, type: 3}
+  Prefabs:
+  - {fileID: 1003349317247500, guid: 4cd38e240adb59c419517b14826e101d, type: 2}
+  - {fileID: 1856827617054196, guid: 74a6a8ebb7034ee44bf398eefecd431d, type: 2}
+  Sprites:
+  - {fileID: 21300000, guid: e08d1a596923a8e4bbfc29a3751f3e64, type: 3}
+  - {fileID: 21300000, guid: ff54b5b8b6a1c8e48a8adfa3f0d30e60, type: 3}
+  RenderTextures:
+  - {fileID: 8600000, guid: cae575de953e52a4489eac4a8f3a7443, type: 2}
+  - {fileID: 8600000, guid: b3ccfa03304d45646864b6538b36ffca, type: 2}
