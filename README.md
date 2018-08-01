@@ -25,7 +25,7 @@
 Для генерации поля используются две реализации класса Assets.Game.Field.Generators.NoiseGeneratorBase. Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию NoiseGeneratorBase.
 
 #### ComputedShaderNoiseGenerator
-Генерация рейтингов планет с помощью ComputedShader.
+Генерация рейтингов планет с помощью ComputedShader. Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/ComputedShaders/CalculateCell.compute).
 
 * **Поддерживаемые платформы**
     * Windows и Windows Store с DirectX 11 или DirectX 12 и Shader Model 5.0 GPU
@@ -35,7 +35,7 @@
     * Современные консоли (Sony PS4 и Microsoft Xbox One)
 
 #### CustomRenderTextureNoiseGenerator
-Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.
+Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/CalculateTextureShaders/CalculateCell.shader).
 
 ### Организация поля
 
