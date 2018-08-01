@@ -20,7 +20,7 @@
 
 ## Реализация
 
-### Генерация
+### Генерация поля
 
 Для генерации поля используются две реализации класса Assets.Game.Field.Generators.NoiseGeneratorBase. Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию NoiseGeneratorBase.
 
@@ -36,3 +36,18 @@
 
 #### CustomRenderTextureNoiseGenerator
 Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.
+
+### Организация поля
+
+* **Константы в классе [Assets.Game.Access.SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
+    * Размер ячейки в позициях: CellPxSize = 100
+    * Размер поля в ячейках: FieldSize = 100
+    * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
+    * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet
+* **Классы**
+    * Assets.Game.Field.Cells.CellCollection: содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
+    * Assets.Game.Field.Cells.CellInfo: содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
+    * Assets.Game.Field.Cells.SortedCellsVisitor: визитор, который считает первые MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
+    * Assets.Game.Field.FieldBehaviour: считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
+    * Assets.Game.UI.Controls.ZoomControl: отвечает за зум и отображение сетки на поле.
+    * Assets.Game.Tools.RectIntTool: реализует вычитание прямоугольников. Тесты тут.
