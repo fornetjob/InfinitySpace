@@ -39,15 +39,15 @@
 
 ### Организация поля
 
-* **Константы в классе [Assets.Game.Access.SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
+* **Константы в [Assets.Game.Access.SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
     * Размер ячейки в позициях: CellPxSize = 100
     * Размер поля в ячейках: FieldSize = 100
     * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
     * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet
 * **Классы**
-    * Assets.Game.Field.Cells.CellCollection: содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
-    * Assets.Game.Field.Cells.CellInfo: содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
-    * Assets.Game.Field.Cells.SortedCellsVisitor: визитор, который считает первые MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
-    * Assets.Game.Field.FieldBehaviour: считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
-    * Assets.Game.UI.Controls.ZoomControl: отвечает за зум и отображение сетки на поле.
-    * Assets.Game.Tools.RectIntTool: реализует вычитание прямоугольников. Тесты тут.
+    * [Assets.Game.Field.Cells.CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
+    * [Assets.Game.Field.Cells.CellInfo](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellInfo.cs): содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
+    * [Assets.Game.Field.Cells.SortedCellsVisitor](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/SortedCellsVisitor.cs): визитор, который считает первые MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
+    * [Assets.Game.Field.FieldBehaviour](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/FieldBehaviour.cs): считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
+    * [Assets.Game.UI.Controls.ZoomControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/UI/Controls/ZoomControl.cs): отвечает за зум и отображение сетки на поле.
+    * [Assets.Game.Tools.RectIntTool](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Tools/RectIntTool.cs): реализует вычитание прямоугольников. [Тесты тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/RectangleTest.cs).
