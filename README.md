@@ -22,9 +22,9 @@
 
 ### Генерация поля
 
-Для генерации поля используются две реализации класса Assets.Game.Field.Generators.NoiseGeneratorBase. Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию NoiseGeneratorBase.
+Для генерации поля используются две реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs).
 
-#### ComputedShaderNoiseGenerator
+#### [ComputedShaderNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/ComputedShaderNoiseGenerator.cs)
 Генерация рейтингов планет с помощью ComputedShader. Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/ComputedShaders/CalculateCell.compute).
 
 * **Поддерживаемые платформы**
@@ -34,7 +34,7 @@
     * Современные платформы OpenGL (OpenGL 4.3 на Linux или Windows; OpenGL ES 3.1 на Android).
     * Современные консоли (Sony PS4 и Microsoft Xbox One)
 
-#### CustomRenderTextureNoiseGenerator
+#### [CustomRenderTextureNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CustomRenderTextureNoiseGenerator.cs)
 Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/CalculateTextureShaders/CalculateCell.shader).
 
 ### Организация поля
