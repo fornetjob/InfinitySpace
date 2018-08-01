@@ -39,19 +39,19 @@
 
 ### Организация поля
 
-* **Константы в [Assets.Game.Access.SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
+* **Константы в [SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
     * Размер ячейки в позициях: CellPxSize = 100
     * Размер поля в ячейках: FieldSize = 100
     * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
     * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet
 
 * **Классы**
-    * [Assets.Game.Field.Cells.CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
-    * [Assets.Game.Field.Cells.CellInfo](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellInfo.cs): содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
-    * [Assets.Game.Field.Cells.SortedCellsVisitor](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/SortedCellsVisitor.cs): визитор, который считает первые MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
-    * [Assets.Game.Field.FieldBehaviour](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/FieldBehaviour.cs): считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
-    * [Assets.Game.UI.Controls.ZoomControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/UI/Controls/ZoomControl.cs): отвечает за зум и отображение сетки на поле.
-    * [Assets.Game.Tools.RectIntTool](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Tools/RectIntTool.cs): реализует вычитание прямоугольников. [Тесты тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/RectangleTest.cs).
+    * [CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
+    * [CellInfo](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellInfo.cs): содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
+    * [SortedCellsVisitor](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/SortedCellsVisitor.cs): визитор, который считает первые MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
+    * [FieldBehaviour](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/FieldBehaviour.cs): считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
+    * [ZoomControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/UI/Controls/ZoomControl.cs): отвечает за зум и отображение сетки на поле.
+    * [RectIntTool](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Tools/RectIntTool.cs): реализует вычитание прямоугольников. [Тесты тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/RectangleTest.cs).
 
 * **Принцип работы**
     * Задаётся случайная позиция и рейтинг игрока на поле.
@@ -63,3 +63,11 @@
     * При передвижении игрока, если была изменена текущая ячейка, создаются два задания: на генерацию всех данных разницы между #4 и #3 прямоугольником и генерацию топ 20 рейтингов разницы между #2 и #1 прямоугольником. Где #1 - старый прямоугольник поля 10000х10000, #2 - новый прямоугольник поля 10000х10000, #3 - старый прямоугольник 300х300 вокруг игрока, #4 - новый прямоугольник 300х300 вокруг игрока.
 
 ![Передвижение](https://c.radikal.ru/c30/1808/1d/a55483549034.png)
+
+### Остальное
+* **Классы**
+    * [ResourcesAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/ResourcesAccess.cs): доступ к ресурсам проекта.
+    * [PrefabsPoolingManager](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Core/PoolingSystem/PrefabsPoolingManager.cs): Реализация пулинга префабов.
+    * [MappingAttribute](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Core/MappingAttribute.cs): Указание этого атрибута для поля автоматически подружает его по имени из дочерних компонентов, либо по абсолютному пути. Механизм [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/Editor/SettingsAccessEditor.cs).
+    * [KeyboardInput](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Inputs/KeyboardInput.cs) и [MobileInput](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Inputs/MobileInput.cs): для управления с клавиатуры или с кнопок на экране, если это мобильное устройство. Если нужно добавить новые способы управления, необходимо определить интерфейс [IPlayerInput](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Inputs/Base/IPlayerInput.cs).
+    * [SortCells](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/DataContracts/SortCells.cs): реализованный, но неиспользованный механизм сортировки на [шейдере](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/ComputedShaders/SortCell.compute).
