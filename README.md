@@ -43,12 +43,12 @@
     * Размер ячейки в позициях: CellPxSize = 100
     * Размер поля в ячейках: FieldSize = 100
     * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
-    * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet
+    * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet = 20
 
 * **Классы**
-    * [CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
-    * [CellInfo](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellInfo.cs): содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
-    * [SortedCellsVisitor](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/SortedCellsVisitor.cs): визитор, который считает первые MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
+    * [CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером 100 * 100 для хранения ячеек и перезаписываемый массив размером 3 * 3 для хранения рейтингов.
+    * [CellInfo](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellInfo.cs): содержит позицию ячейки, первых 20 ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
+    * [SortedCellsVisitor](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/SortedCellsVisitor.cs): визитор, который считает первые 20 ближайших к рейтингу игрока планет на видимом вокруг игрока радиусе.
     * [FieldBehaviour](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/FieldBehaviour.cs): считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
     * [ZoomControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/UI/Controls/ZoomControl.cs): отвечает за зум и отображение сетки на поле.
     * [RectIntTool](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Tools/RectIntTool.cs): реализует вычитание прямоугольников. [Тесты тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/RectangleTest.cs).
