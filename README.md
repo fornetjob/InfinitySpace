@@ -44,6 +44,7 @@
     * Размер поля в ячейках: FieldSize = 100
     * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
     * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet
+
 * **Классы**
     * [Assets.Game.Field.Cells.CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером CellPxSize * CellPxSize для хранения ячеек и перезаписываемый массив размером FullGeneratedCellsRadius * FullGeneratedCellsRadius для хранения рейтингов.
     * [Assets.Game.Field.Cells.CellInfo](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellInfo.cs): содержит позицию ячейки, первых MaxAdvancedVisiblePlanet ближайших к рейтингу игрока планет, и все рейтинги планет, если это полностью генерируемая ячейка.
@@ -51,3 +52,13 @@
     * [Assets.Game.Field.FieldBehaviour](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/FieldBehaviour.cs): считает разницу прямоугольных областей при движении игрока и посылает на генерацию, отображает планеты в различных режимах.
     * [Assets.Game.UI.Controls.ZoomControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/UI/Controls/ZoomControl.cs): отвечает за зум и отображение сетки на поле.
     * [Assets.Game.Tools.RectIntTool](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Tools/RectIntTool.cs): реализует вычитание прямоугольников. [Тесты тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/RectangleTest.cs).
+
+* **Принцип работы**
+    * Задаётся случайная позиция и рейтинг игрока на поле.
+    * В процессе генерации с помощью одного из механизмов (ComputedShaderNoiseGenerator или CustomRenderTextureNoiseGenerator) создаётся массив ячеек 100х100 в каждой из которых находится 100х100 рейтингов планет. Но все рейтинги загружаются только в 9 ячеек вокруг игрока, а в остальные загружаются 20 самых близких к рейтингу игрока рейтингов планет.
+    * Берём текущую область отображения с помощью ZoomControl.
+    * Если это обычный режим отображения - показываем планеты вокруг игрока.
+    * Если это особый режим отображения - вызываем визитор SortedCellsVisitor, который ходит по спирали вокруг игрока и вычисляет первые 20 ближайших по рейтингу планет.
+    * В особом режиме отображения, если зум превысил 100х100 - происходит центрирование камеры по ячейкам и визитор принимает на вход не полностью загруженные рейтинги вокруг игрока на FullGeneratedCellsRadius радиусе ячеек, а сами ячейки, анализируя предгенерированные топ 20 рейтингов в ячейках.
+    * При передвижении игрока, если была изменена текущая ячейка, создаются два задания: для полной генерации ячеек на FullGeneratedCellsRadius радиусе от игрока и на изменение поля.
+    [Передвижение](https://c.radikal.ru/c30/1808/1d/a55483549034.png)
