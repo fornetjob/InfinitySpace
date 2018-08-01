@@ -23,6 +23,9 @@
 ### Генерация поля
 
 Для генерации поля используются две реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs).
+Для тестирования режимов необходимо переключить настройки:
+
+![](https://d.radikal.ru/d09/1808/6a/681c71264994.png)
 
 #### [ComputedShaderNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/ComputedShaderNoiseGenerator.cs)
 Генерация рейтингов планет с помощью ComputedShader. Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/ComputedShaders/CalculateCell.compute).
