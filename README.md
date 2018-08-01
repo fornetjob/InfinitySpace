@@ -20,3 +20,19 @@
 
 ## Реализация
 
+### Генерация
+
+Для генерации поля используются две реализации класса Assets.Game.Field.Generators.NoiseGeneratorBase. Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию NoiseGeneratorBase.
+
+#### ComputedShaderNoiseGenerator
+Генерация рейтингов планет с помощью ComputedShader.
+
+* **Поддерживаемые платформы**
+    * Windows и Windows Store с DirectX 11 или DirectX 12 и Shader Model 5.0 GPU
+    * macOS и iOS с использованием Metal graphics API
+    * Android, Linux и Windows platforms с использованием Vulkan API
+    * Современные платформы OpenGL (OpenGL 4.3 на Linux или Windows; OpenGL ES 3.1 на Android).
+    * Современные консоли (Sony PS4 и Microsoft Xbox One)
+
+#### CustomRenderTextureNoiseGenerator
+Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.
