@@ -38,7 +38,7 @@
     * Современные консоли (Sony PS4 и Microsoft Xbox One)
 
 #### [CustomRenderTextureNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CustomRenderTextureNoiseGenerator.cs)
-Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/CalculateTextureShaders/CalculateCell.shader).
+Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/Tools.cginc).
 
 #### [CpuNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CpuNoiseGenerator.cs)
 Генерация рейтингов планет "налету", платформонезависимая реализация.
