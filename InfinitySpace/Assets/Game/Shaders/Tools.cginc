@@ -3,7 +3,7 @@
     const uint WorldSize = 1000000;
     const uint PrimeX = 1619;
     const uint PrimeY = 31337;
-    const uint HashMod = 32768;
+    const uint HashMod = 30000;
     const uint MaxRating = 10001;
     const uint CellSize = 100;
     const int CellLenght = 100 * 100;
@@ -22,9 +22,9 @@
 
     hash += x * PrimeX;
     hash += y * PrimeY;
-    hash = (hash * hash * 60493) % HashMod;
+    hash = (hash * hash * hash * 60493) % HashMod + 1;
 
-    hash *= step(hash, MaxRating);
+    hash *= step(hash, 10001);
 
     return hash;
 }

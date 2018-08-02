@@ -24,9 +24,9 @@
 
 			fixed4 frag(v2f_img i) : COLOR
 			{
-				uint id = floor(i.pos.x) + floor(i.pos.y) * Width;
+				int id = abs(floor(i.pos.x) + floor(i.pos.y) * Width);
 
-				uint rating = CalcRating(Seed, id, PosX, PosY);
+				int rating = abs(CalcRating(Seed, id, PosX, PosY));
 
 				return fixed4(rating % 256 / 256.0, floor(rating / 256) / 256.0, 0, 1);
 			}

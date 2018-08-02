@@ -30,7 +30,7 @@ namespace Assets.Game.Tools
         {
             const int PrimeX = 1619;
             const int PrimeY = 31337;
-            const int HashMod = 32768;
+            const int HashMod = 30000;
 
             uint x = (uint)(SettingsAccess.WorldSize + pos.x + id % SettingsAccess.CellPxSize);
             uint y = (uint)(SettingsAccess.WorldSize + pos.y + id / SettingsAccess.CellPxSize);
@@ -39,7 +39,7 @@ namespace Assets.Game.Tools
 
             hash += x * PrimeX;
             hash += y * PrimeY;
-            hash = (hash * hash * 60493) % HashMod + 1;
+            hash = (hash * hash * hash * 60493) % HashMod + 1;
 
             if (hash >= SettingsAccess.MaxRating)
             {
