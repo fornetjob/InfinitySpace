@@ -22,7 +22,7 @@
 
 ### Генерация поля
 
-Для генерации поля используются две реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs).
+Для генерации поля используются три реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs).
 Для тестирования режимов необходимо переключить настройки:
 
 ![](https://d.radikal.ru/d09/1808/6a/681c71264994.png)
@@ -40,13 +40,17 @@
 #### [CustomRenderTextureNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CustomRenderTextureNoiseGenerator.cs)
 Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/CalculateTextureShaders/CalculateCell.shader).
 
+#### [CpuNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CpuNoiseGenerator.cs)
+Генерация рейтингов планет "налету", платформонезависимая реализация
+
 ### Организация поля
 
-* **Константы в [SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
+* **Настройки в [SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
     * Размер ячейки в позициях: CellPxSize = 100
     * Размер поля в ячейках: FieldSize = 100
     * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
     * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet = 20
+    * Режим отладки, отображется фпс, время генерации и поиска: IsDebugMode = true
 
 * **Классы**
     * [CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером 100 * 100 для хранения ячеек и перезаписываемый массив размером 3 * 3 для хранения рейтингов.
@@ -75,3 +79,21 @@
     * [KeyboardInput](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Inputs/KeyboardInput.cs) и [MobileInput](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Inputs/MobileInput.cs): для управления с клавиатуры или с кнопок на экране, если это мобильное устройство. Если нужно добавить новые способы управления, необходимо определить интерфейс [IPlayerInput](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Inputs/Base/IPlayerInput.cs).
     * [SortCells](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Editor/Tests/DataContracts/SortCells.cs): реализованный, но неиспользованный механизм сортировки на [шейдере](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/ComputedShaders/SortCell.compute).
     * [EnumObjectDictionary](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Core/Collections/EnumObjectDictionary.cs): Словарь, который получает на вход перечисление и список объектов. Предоставляет доступ к объекту по значению перечисления.
+    * [DebugControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/GameDebug/UI/DebugControl.cs): Используется для отладки.
+ 
+### Тайминги
+
+* **PC**
+    * Процессор i7-5930
+    * Видео-карта GTX 980 Ti
+* **Phone**
+   * [HTC One](https://www.htc.com/ru/smartphones/htc-one-m7/)
+
+Генератор     |Платформа|Предварительная генерация всего поля|Генерация разницы при передвижении|% от ComputedShader|
+--------------|---------|------------------------------------|----------------------------------|-------------------|
+ComputedShader|PC       |~7200ms                             |~50ms                             |100%|
+ComputedShader|Phone|-|-|-|
+RenderTexture|PC|~12500ms|~150ms|~174%|
+RenderTexture|Phone|~15200|~170|~211%|
+CPU|PC|~13000ms|~30ms|~181%|
+CPU|Phone|~37200ms|50ms|~517%|
