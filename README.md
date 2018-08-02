@@ -94,7 +94,7 @@
 ComputedShader|PC       |~2800ms                             |~50ms                             |100%|
 ComputedShader|Phone|-|-|-|
 RenderTexture|PC|~7300ms|~150ms|~261%|
-RenderTexture|Phone|~15200|~170|~542%|
+RenderTexture|Phone|~15200ms|~170|~542%|
 CPU|PC|~5700ms|~30ms|~203%|
 CPU|Phone|~37200ms|~50ms|~1328%|
 
