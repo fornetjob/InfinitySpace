@@ -46,11 +46,11 @@
 ### Организация поля
 
 * **Настройки в [SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
-    * Размер ячейки в позициях: CellPxSize = 100
-    * Размер поля в ячейках: FieldSize = 100
-    * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
-    * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet = 20
-    * Режим отладки, отображется фпс, время генерации и поиска: IsDebugMode = true
+    * CellPxSize = 100 - размер ячейки в позициях.
+    * FieldSize = 100 - размер поля в ячейках.
+    * FullGeneratedCellsRadiusSize = 3 - полностью генирируемый размер ячеек вокруг игрока.
+    * MaxAdvancedVisiblePlanet = 20 - количество видимых игроку планет, в расширенном режиме.
+    * IsDebugMode = true - режим отладки, отображется фпс, время генерации и поиска.
 
 * **Классы**
     * [CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером 100 * 100 для хранения ячеек и перезаписываемый массив размером 3 * 3 для хранения рейтингов.
