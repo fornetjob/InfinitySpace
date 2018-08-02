@@ -22,8 +22,8 @@
 
 ### Генерация поля
 
-Для генерации поля используются три реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs).
-Для тестирования режимов необходимо переключить настройки:
+Для генерации поля используются три реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs), либо использовать [CpuNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CpuNoiseGenerator.cs), у которого нет требований к платформе.
+Для тестирования режимов необходимо переключить настройки, либо загрузить один из билдов под Windows из репозитория:
 
 ![](https://d.radikal.ru/d09/1808/6a/681c71264994.png)
 
