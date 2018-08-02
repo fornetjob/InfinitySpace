@@ -71,7 +71,6 @@ namespace Assets.Game.Field.Cells
                 int cellX = cellIndex % info.CellSizeX;
                 int cellY = cellIndex / info.CellSizeY;
 
-                // Принудительно реициниализируем ячейку, так как в задании могли прийти данные для видимой игроку ячейки
                 cell = GetOrCreateCell(centerPos, pos + new Vector2Int(cellX, cellY) * SettingsAccess.CellPxSize);
 
                 index = cell.FillRatings(data, index, _playerRating);

@@ -28,31 +28,24 @@ namespace Assets.Game.UI.Controls
         /// <summary>
         /// Кадров в секунду
         /// </summary>
-        public float FramesPerSecond = 10;
-
-        #endregion
-
-        #region Game
-
-        void Update()
-        {
-            _img.sprite = Sprites[(int)(Time.time * FramesPerSecond) % Sprites.Length];
-        }
+        public float FramesPerValue = 180;
 
         #endregion
 
         #region Public methods
 
-        /// <summary>
-        /// Проигрывать анимацию
-        /// </summary>
-        public void Play()
+        public void OnProgress(float progress)
         {
-            _img.enabled = true;
+            if (_img.enabled == false)
+            {
+                _img.enabled = true;
 
-            Update();
+                gameObject.SetActive(true);
+            }
 
-            gameObject.SetActive(true);
+            int spriteIndex = (int)(progress * FramesPerValue) % Sprites.Length;
+
+            _img.sprite = Sprites[spriteIndex];
         }
 
         /// <summary>

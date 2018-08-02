@@ -102,7 +102,7 @@ namespace Assets.Game.UI.Controls
 
             if (_moveToValue > _currentValue)
             {
-                _currentValue += Time.deltaTime * 5;
+                _currentValue += Time.deltaTime * 2;
 
                 _currentValue = Mathf.Min(_currentValue, _moveToValue);
 
@@ -155,8 +155,6 @@ namespace Assets.Game.UI.Controls
             _moveToValue = _currentValue;
 
             RefreshValueImage();
-
-            _animation.Play();
         }
 
         #endregion
@@ -181,6 +179,8 @@ namespace Assets.Game.UI.Controls
         private void RefreshValueImage()
         {
             _value.fillAmount = _currentValue;
+
+            _animation.OnProgress(_currentValue);
         }
 
         /// <summary>

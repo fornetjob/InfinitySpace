@@ -165,23 +165,22 @@ namespace Assets.Game.Field
 
                 generationString = "GENERATE COMPUTED SHADER";
             }
-            //else
-            //{
-            //    // Для всех остальных платформ.
-            //    // По идее, должен поддерживаться большинством платформ (если это не так, нужно добавить для недостающих платформ свои реализации <typeparamref name="NoiseGeneratorBase")
-            //    _generator = gameObject.AddComponent<CustomRenderTextureNoiseGenerator>()
-            //        .SetDebug(debug);
-
-            //    generationString = "GENERATE RENDER TEXTURE";
-            //}
             else
             {
+#if (UNITY_ANDROID)
+                // По идее, должен поддерживаться большинством платформ, добавлять директивы препроцессора по мере тестирования
+                _generator = gameObject.AddComponent<CustomRenderTextureNoiseGenerator>()
+                    .SetDebug(debug);
+
+                generationString = "GENERATE RENDER TEXTURE";
+
+#else
                 // Для всех остальных платформ.
-                // По идее, должен поддерживаться большинством платформ (если это не так, нужно добавить для недостающих платформ свои реализации <typeparamref name="NoiseGeneratorBase")
                 _generator = gameObject.AddComponent<CpuNoiseGenerator>()
                     .SetDebug(debug);
 
                 generationString = "GENERATE CPU";
+#endif
             }
 
             _generator.OnProcessEnd += OnGenerationEnd;
@@ -193,9 +192,9 @@ namespace Assets.Game.Field
             progress.Begin(() => _generator.GetProgress(), generationString, OnEndInit);
         }
 
-        #endregion
+#endregion
 
-        #region Event handlers
+#region Event handlers
 
         /// <summary>
         /// Событие окончания генерации куска поля
@@ -293,9 +292,9 @@ namespace Assets.Game.Field
             }
         }
 
-        #endregion
+#endregion
 
-        #region Private methods
+#region Private methods
         
         /// <summary>
         /// Установить текущую позицию поля и игрока
@@ -438,6 +437,6 @@ namespace Assets.Game.Field
             _prevRect = null;
         }
 
-        #endregion
+#endregion
     }
 }

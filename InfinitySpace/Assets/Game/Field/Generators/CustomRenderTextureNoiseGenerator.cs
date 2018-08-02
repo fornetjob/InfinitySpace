@@ -12,7 +12,6 @@ namespace Assets.Game.Field.Generators
 {
     /// <summary>
     /// Генерация рейтингов планет с помощью фрагментного шейдера. 
-    /// По идее, должен поддерживаться большинством платформ (если это не так, нужно добавить для недостающих платформ свои реализации NoiseGeneratorBase)
     /// </summary>
     public class CustomRenderTextureNoiseGenerator : NoiseGeneratorBase
     {
