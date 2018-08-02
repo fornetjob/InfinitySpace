@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Access;
 using Assets.Game.Field.Generators.DataContracts.Base;
+using Assets.Game.Tools;
 using System;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Assets.Game.Field.Generators.DataContracts
         /// <summary>
         /// Сид
         /// </summary>
-        private int
+        private uint
             _seed;
 
         #endregion
@@ -32,7 +33,7 @@ namespace Assets.Game.Field.Generators.DataContracts
         /// Установить сид
         /// </summary>
         /// <param name="seed">Сид</param>
-        public void SetSeed(int seed)
+        public void SetSeed(uint seed)
         {
             _seed = seed;
         }
@@ -62,25 +63,7 @@ namespace Assets.Game.Field.Generators.DataContracts
         /// <returns>Рейтинг планеты от 1 до 10001 (0 если она отсутствует)</returns>
         public ushort GetRating(int id)
         {
-            const int PrimeX = 1619;
-            const int PrimeY = 31337;
-            const int HashMod = 30000;
-
-            int x = SettingsAccess.WorldSize + _pos.x + id % SettingsAccess.CellPxSize;
-            int y = SettingsAccess.WorldSize + _pos.y + id / SettingsAccess.CellPxSize;
-
-            int hash = _seed;
-
-            hash += x * PrimeX;
-            hash += y * PrimeY;
-            hash = (hash * hash * 60493) % HashMod + 1;
-
-            if (hash >= SettingsAccess.MaxRating)
-            {
-                hash = 0;
-            }
-
-            return (ushort)hash;
+            return NoiseTool.GetRandomPlanetRating(_seed, _pos, id);
         }
 
         /// <summary>

@@ -146,7 +146,7 @@ namespace Assets.Game.Field
             // Инициализируем случайные значения положения игрока на поле и его рейтинг
             _currentCellPosition = SettingsAccess.GetRandomFieldPosition();
             _currentCellItemPosition = SettingsAccess.GetRandomCellPosition(_currentCellPosition);
-            _playerRating = (ushort)Random.Range(1, SettingsAccess.MaxRating);
+            _playerRating = NoiseTool.GetRandomPlayerRating();
 
             // Инициализируем коллекцию ячеек
             _cells = new CellCollection(_playerRating);

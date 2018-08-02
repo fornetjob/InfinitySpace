@@ -73,7 +73,7 @@ namespace Assets.Game.Field.Cells
             {
                 var cellItem = cells._items[i];
 
-                if (cellItem.RatingDistance < _maxRatingDistance)
+                if (IsBelowThanMaxRatingDistance(cellItem.RatingDistance))
                 {
                     AppendCellItemFast(cellItem);
                 }

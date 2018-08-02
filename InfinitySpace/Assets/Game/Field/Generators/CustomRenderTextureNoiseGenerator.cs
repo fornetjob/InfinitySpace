@@ -62,7 +62,7 @@ namespace Assets.Game.Field.Generators
                 ResourcesAccess.Instance.GetRenderTexture(RenderTextureType.RenderTexture100x100)
             };
 
-            int seed = GetNewSeed();
+            int seed = (int)GetNewSeed();
 
             for (int i = 0; i < _renderTextures.Length; i++)
             {

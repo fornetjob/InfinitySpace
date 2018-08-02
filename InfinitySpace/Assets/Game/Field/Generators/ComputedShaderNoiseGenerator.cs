@@ -78,7 +78,7 @@ namespace Assets.Game.Field.Generators
             _shaderBuffer = new ComputeBuffer(_data.Length, 4);
             _shaderKernel = _shader.FindKernel("Calculate");
 
-            _shader.SetInt("Seed", GetNewSeed());
+            _shader.SetInt("Seed", (int)GetNewSeed());
 
             var renderTextures = ResourcesAccess.Instance.RenderTextures;
 

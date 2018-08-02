@@ -104,9 +104,9 @@ namespace Assets.Game.Field.Generators.Base
 
         #region Protected methods
 
-        protected int GetNewSeed()
+        protected uint GetNewSeed()
         {
-            return UnityEngine.Random.Range(0, int.MaxValue);
+            return (uint)UnityEngine.Random.Range(0, int.MaxValue);
         }
 
         /// <summary>
