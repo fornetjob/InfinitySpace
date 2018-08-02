@@ -86,17 +86,17 @@
 * **PC**
     * Процессор i7-5930
     * Видео-карта GTX 980 Ti
-* **Phone**
+* **Android**
    * [HTC One](https://www.htc.com/ru/smartphones/htc-one-m7/)
 
 Генератор     |Платформа|Предварительная генерация всего поля|Генерация разницы при передвижении|% от ComputedShader PC|
 --------------|---------|------------------------------------|----------------------------------|-------------------|
 ComputedShader|PC       |~2800ms                             |~50ms                             |100%|
-ComputedShader|Phone|-|-|-|
+ComputedShader|Android|-|-|-|
 RenderTexture|PC|~7300ms|~150ms|~261%|
-RenderTexture|Phone|~15200ms|~170ms|~542%|
+RenderTexture|Android|~15200ms|~170ms|~542%|
 CPU|PC|~5700ms|~30ms|~203%|
-CPU|Phone|~37200ms|~50ms|~1328%|
+CPU|Android|~37200ms|~50ms|~1328%|
 
 ### Что можно улучшить и на что не хватило времени
 
