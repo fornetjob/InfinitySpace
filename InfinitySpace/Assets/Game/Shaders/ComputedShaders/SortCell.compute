@@ -21,7 +21,7 @@ void Sort(uint index: SV_DispatchThreadID)
     int x = PosX + pos.x;
     int y = PosY + pos.y;
 
-    uint rating = CalcRating(x, y);
+    uint rating = 0;// CalcRating(x, y);
 
     int ratingDistance = abs(PlayerRating - rating);
 

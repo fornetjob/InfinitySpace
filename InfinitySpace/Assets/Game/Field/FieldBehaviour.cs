@@ -11,7 +11,7 @@ using Assets.Game.Inputs;
 using Assets.Game.Inputs.Base;
 using Assets.Game.Tools;
 using Assets.Game.UI.Controls;
-
+using Assets.GameDebug;
 using UnityEngine;
 
 namespace Assets.Game.Field
@@ -136,7 +136,7 @@ namespace Assets.Game.Field
         /// </summary>
         /// <param name="zoom">Зум поля</param>
         /// <param name="progress">Прогресс инициализации</param>
-        public void Init(ZoomControl zoom, ProgressBar progress, IPlayerInput input)
+        public void Init(ZoomControl zoom, ProgressBar progress, IPlayerInput input, IGameDebug debug)
         {
             // Подпишемся на изменения зума
             _zoom = zoom;
@@ -152,7 +152,7 @@ namespace Assets.Game.Field
             _cells = new CellCollection(_playerRating);
 
             // Инициализируем механизм поиска первых <see cref="SettingsAccess.MaxAdvancedVisiblePlanet"/> планет, ближайших по рейтингу к рейтингу игрока
-            _sortedCellsVisitor = gameObject.AddComponent<SortedCellsVisitor>().Init(_cells, _playerRating);
+            _sortedCellsVisitor = gameObject.AddComponent<SortedCellsVisitor>().Init(_cells, _playerRating, debug);
             _sortedCellsVisitor.OnProcessEnd += OnSearchTopRatingsEnd;
 
             string generationString;
@@ -160,17 +160,28 @@ namespace Assets.Game.Field
             if (SystemInfo.supportsComputeShaders)
             {
                 // Если поддерживаются Computed Shader
-                _generator = gameObject.AddComponent<ComputedShaderNoiseGenerator>();
+                _generator = gameObject.AddComponent<ComputedShaderNoiseGenerator>()
+                    .SetDebug(debug);
 
                 generationString = "GENERATE COMPUTED SHADER";
             }
+            //else
+            //{
+            //    // Для всех остальных платформ.
+            //    // По идее, должен поддерживаться большинством платформ (если это не так, нужно добавить для недостающих платформ свои реализации <typeparamref name="NoiseGeneratorBase")
+            //    _generator = gameObject.AddComponent<CustomRenderTextureNoiseGenerator>()
+            //        .SetDebug(debug);
+
+            //    generationString = "GENERATE RENDER TEXTURE";
+            //}
             else
             {
                 // Для всех остальных платформ.
                 // По идее, должен поддерживаться большинством платформ (если это не так, нужно добавить для недостающих платформ свои реализации <typeparamref name="NoiseGeneratorBase")
-                _generator = gameObject.AddComponent<CustomRenderTextureNoiseGenerator>();
+                _generator = gameObject.AddComponent<CpuNoiseGenerator>()
+                    .SetDebug(debug);
 
-                generationString = "GENERATE RENDER TEXTURE";
+                generationString = "GENERATE CPU";
             }
 
             _generator.OnProcessEnd += OnGenerationEnd;

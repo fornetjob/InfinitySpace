@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e314ac250bd3b1340af628071736a68f, type: 3}
   m_Name: SettingsAccess
   m_EditorClassIdentifier: 
-  IsFpsCounterVisible: 1
+  IsDebugMode: 1

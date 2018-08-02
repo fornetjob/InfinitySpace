@@ -7,6 +7,7 @@ using Assets.Game.Field.Generators.Iterators;
 using Assets.Game.Tools;
 
 using UnityEngine;
+using Assets.GameDebug;
 
 namespace Assets.Game.Field.Cells
 {
@@ -79,8 +80,11 @@ namespace Assets.Game.Field.Cells
         private bool
             _isVisitEnded;
 
-        private bool
-            _isWaitCellCreation;
+        /// <summary>
+        /// Отладчик
+        /// </summary>
+        private ICellsVisitorDebug
+            _debug;
 
         #endregion
 
@@ -101,14 +105,18 @@ namespace Assets.Game.Field.Cells
         /// <summary>
         /// Инициализация визитора
         /// </summary>
+        /// <param name="cells">Ячейки</param>
         /// <param name="playerRating">Рейтинг игрока</param>
+        /// <param name="debug">Отладчик</param>
         /// <returns></returns>
-        public SortedCellsVisitor Init(CellCollection cells, ushort playerRating)
+        public SortedCellsVisitor Init(CellCollection cells, ushort playerRating, ICellsVisitorDebug debug)
         {
             _cells = cells;
             _iterator = new SpiralPositionsIterator();
 
             _playerRating = playerRating;
+
+            _debug = debug;
 
             return this;
         }
@@ -159,6 +167,11 @@ namespace Assets.Game.Field.Cells
             _sortedCells.Clear();
 
             _isVisitEnded = false;
+
+            if (_debug != null)
+            {
+                _debug.OnBeginSearch();
+            }
         }
 
         void IAsyncCollectionProcess<SortedCellItem[]>.AppendRects(List<RectInt> rects, bool clearExists = false)
@@ -175,6 +188,21 @@ namespace Assets.Game.Field.Cells
 
         #region Private methods
 
+        private void EndProcess()
+        {
+            if (_debug != null)
+            {
+                _debug.OnEndSearch();
+            }
+
+            _isVisitEnded = true;
+
+            if (OnProcessEnd != null)
+            {
+                OnProcessEnd(_sortedCells.GetValues());
+            }
+        }
+
         /// <summary>
         /// Сортирует следущие <see cref="_sliceLenght"/> позиций по координатам из <see cref="_iterator"/>
         /// </summary>
@@ -187,15 +215,9 @@ namespace Assets.Game.Field.Cells
 
             for (int i = 0; i < _sliceLenght; i++)
             {
-                if (_isWaitCellCreation == false
-                    && _iterator.MoveNext() == false)
+                if ( _iterator.MoveNext() == false)
                 {
-                    _isVisitEnded = true;
-
-                    if (OnProcessEnd != null)
-                    {
-                        OnProcessEnd(_sortedCells.GetValues());
-                    }
+                    EndProcess();
 
                     return;
                 }
@@ -206,9 +228,7 @@ namespace Assets.Game.Field.Cells
 
                     if (_cell == null)
                     {
-                        _isWaitCellCreation = true;
-
-                        Debug.Log(_iterator.Current);
+                        EndProcess();
 
                         return;
                     }
@@ -227,7 +247,7 @@ namespace Assets.Game.Field.Cells
 
                     if (_cell == null)
                     {
-                        _isWaitCellCreation = true;
+                        EndProcess();
 
                         return;
                     }

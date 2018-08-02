@@ -24,7 +24,7 @@ namespace Assets.Game.Field.Generators
         /// <summary>
         /// Количество потоков
         /// </summary>
-        private const int ShaderThreadCount = 1;
+        private const int ShaderThreadCount = 3;
 
         #endregion
 
@@ -78,7 +78,7 @@ namespace Assets.Game.Field.Generators
             _shaderBuffer = new ComputeBuffer(_data.Length, 4);
             _shaderKernel = _shader.FindKernel("Calculate");
 
-            _shader.SetInt("CellSize", SettingsAccess.CellPxSize);
+            _shader.SetInt("Seed", GetNewSeed());
 
             var renderTextures = ResourcesAccess.Instance.RenderTextures;
 

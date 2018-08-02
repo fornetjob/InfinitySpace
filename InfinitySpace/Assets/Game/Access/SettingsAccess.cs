@@ -36,7 +36,7 @@ namespace Assets.Game.Access
         /// <summary>
         /// Размер поля в ячейках
         /// </summary>
-        public const int FieldSize = 110;
+        public const int FieldSize = 100;
 
         /// <summary>
         /// Общее количество ячеек на поле
@@ -224,7 +224,7 @@ namespace Assets.Game.Access
 
         #region Properties
 
-        public bool IsFpsCounterVisible;
+        public bool IsDebugMode;
 
         #endregion
     }

@@ -9,7 +9,7 @@ namespace Assets.Game.Field.Generators.DataContracts
     /// <summary>
     /// Текущее состояние куска задания, получаемое из массива
     /// </summary>
-    public class ArraySliceData : ISliceData, IDisposable
+    public class ArraySliceData : ISliceData
     {
         #region Fields
 
@@ -88,11 +88,6 @@ namespace Assets.Game.Field.Generators.DataContracts
         public ushort GetRating(int index)
         {
             return (ushort)_values[index];
-        }
-
-        public void Dispose()
-        {
-            _values = null;
         }
 
         #endregion

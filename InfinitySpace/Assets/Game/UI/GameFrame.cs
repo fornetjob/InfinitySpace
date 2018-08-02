@@ -1,9 +1,11 @@
-﻿using Assets.Game.Core;
+﻿using Assets.Game.Access;
+using Assets.Game.Core;
 using Assets.Game.Field;
 using Assets.Game.Inputs;
 using Assets.Game.Inputs.Base;
 using Assets.Game.UI.Controls;
-
+using Assets.GameDebug;
+using Assets.GameDebug.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -49,6 +51,14 @@ namespace Assets.Game.UI
         private MobileInput
             _mobileInput;
 
+        /// <summary>
+        /// Маппинг на отладчик
+        /// </summary>
+        [Mapping]
+        [SerializeField]
+        private DebugControl
+            _debug;
+
         #endregion
 
         void Awake()
@@ -67,8 +77,16 @@ namespace Assets.Game.UI
                 input = gameObject.AddComponent<KeyboardInput>();
             }
 #endif
+            IGameDebug debug = null;
 
-            _field.Init(_zoom, _progressBar, input);
+            if (SettingsAccess.Instance.IsDebugMode)
+            {
+                debug = _debug;
+
+                debug.StartDebug();
+            }
+
+            _field.Init(_zoom, _progressBar, input, debug);
         }
     }
 }

@@ -63,12 +63,19 @@ namespace Assets.Game.Field.Generators
                 ResourcesAccess.Instance.GetRenderTexture(RenderTextureType.RenderTexture100x100)
             };
 
+            int seed = GetNewSeed();
+
             for (int i = 0; i < _renderTextures.Length; i++)
             {
-                var tex = _renderTextures[i];
+                var rendText = _renderTextures[i];
 
-                tex.initializationMode = CustomRenderTextureUpdateMode.Realtime;
-                tex.updateMode = CustomRenderTextureUpdateMode.Realtime;
+                rendText.initializationMode = CustomRenderTextureUpdateMode.Realtime;
+                rendText.updateMode = CustomRenderTextureUpdateMode.Realtime;
+
+                var mat = rendText.material;
+
+                // Установим случайный сид для генерации поля
+                mat.SetInt("Seed", seed);
             }
 
             _textures = new Texture2D[_renderTextures.Length];
@@ -104,7 +111,6 @@ namespace Assets.Game.Field.Generators
             var mat = rendText.material;
 
             // Изменяем координаты и добавляем прочие параметры, необходимые для генерации текущего куска прямоугольника
-            mat.SetInt("CellSize", SettingsAccess.CellPxSize);
             mat.SetInt("Width", rendText.width);
             mat.SetInt("PosX", pos.x);
             mat.SetInt("PosY", pos.y);
@@ -119,7 +125,7 @@ namespace Assets.Game.Field.Generators
 
             // CustomRenderTexture иногда может не обновиться с первого раза
             // Как вариант - реализовать собственный плагин, для работы непосредственно с opengl  https://answers.unity.com/questions/465409/reading-from-a-rendertexture-is-slow-how-to-improv.html
-            if (_renderCount < 1)
+            if (_renderCount < 2)
             {
                 _renderCount++;
 

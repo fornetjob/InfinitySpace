@@ -1,26 +1,32 @@
-﻿uint CalculateRating(int width, int cellSize, int posX, int posY, int id)
+﻿uint CalcRating(uint seed, uint id, int posX, int posY)
 {
-    int x = posX + id / cellSize % width;
+    const uint WorldSize = 1000000;
+    const uint PrimeX = 1619;
+    const uint PrimeY = 31337;
+    const uint HashMod = 30000;
+    const uint MaxRating = 10001;
+    const uint CellSize = 100;
+    const int CellLenght = 100 * 100;
 
-    int yShift = id / cellSize / width;
-    int y = posY + id % cellSize + yShift * cellSize;
+    uint cellPos = (id / CellLenght);
 
-    float hash = 10000 * sin(17.0 * x + y * 0.1 * (0.1f + abs(sin(x * 13.0f + y))));
-    hash = hash - floor(hash) - 0.6;
+    uint cellX = (cellPos % 10) * CellSize;
+    uint cellY = (cellPos / 10) * CellSize;
 
-    hash = max(0, hash) * 2.5;
+    uint sId = id % CellLenght;
 
-    return hash * 10001;
-}
+    uint x = WorldSize + posX + cellX + sId % CellSize;
+    uint y = WorldSize + posY + cellY + (sId / CellSize) % CellSize;
 
-uint CalcRating(int x, int y)
-{
-    float hash = 10000 * sin(17.0 * x + y * 0.1 * (0.1f + abs(sin(x * 13.0f + y))));
-    hash = hash - floor(hash) - 0.6;
+    uint hash = seed;
 
-    hash = max(0, hash) * 2.5;
+    hash += x * PrimeX;
+    hash += y * PrimeY;
+    hash = (hash * hash * 60493) % HashMod + 1;
 
-    return hash * 10001;
+    hash *= step(hash, 10001);
+
+    return hash;
 }
 
 int2 Spiral(int index)

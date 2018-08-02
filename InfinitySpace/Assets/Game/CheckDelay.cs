@@ -3,7 +3,7 @@
 namespace Assets.Game
 {
     /// <summary>
-    /// Используется проверки интервалов задержки
+    /// Используется для проверки задержки
     /// </summary>
     public class CheckDelay
     {
@@ -24,7 +24,7 @@ namespace Assets.Game
         #endregion
 
         /// <summary>
-        /// Новый проверка задержки
+        /// Новая проверка задержки
         /// </summary>
         /// <param name="waitMs">Задержка в милисекундах</param>
         public CheckDelay(int waitMs)

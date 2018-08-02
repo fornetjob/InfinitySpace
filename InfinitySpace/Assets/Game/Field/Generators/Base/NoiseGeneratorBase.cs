@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using System;
+using Assets.GameDebug;
 
 namespace Assets.Game.Field.Generators.Base
 {
@@ -22,6 +23,12 @@ namespace Assets.Game.Field.Generators.Base
         /// </summary>
         private GenerateRectIterator
             _rectIterator = new GenerateRectIterator();
+
+        /// <summary>
+        /// Отладка
+        /// </summary>
+        private IGenerationDebug
+            _debug;
 
         #endregion
 
@@ -46,6 +53,13 @@ namespace Assets.Game.Field.Generators.Base
         #endregion
 
         #region Public methods
+
+        public NoiseGeneratorBase SetDebug(IGenerationDebug debug)
+        {
+            _rectIterator.SetDebug(debug);
+
+            return this;
+        }
 
         /// <summary>
         /// Добавить задание на генерацию поля
@@ -89,6 +103,11 @@ namespace Assets.Game.Field.Generators.Base
         #endregion
 
         #region Protected methods
+
+        protected int GetNewSeed()
+        {
+            return UnityEngine.Random.Range(0, int.MaxValue);
+        }
 
         /// <summary>
         /// Генерация куска завершена

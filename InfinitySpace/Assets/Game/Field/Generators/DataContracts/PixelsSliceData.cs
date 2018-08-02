@@ -9,7 +9,7 @@ namespace Assets.Game.Field.Generators.DataContracts
     /// <summary>
     /// Текущее состояние куска задания, получаемое из пикселей
     /// </summary>
-    public class PixelsSliceData : ISliceData, IDisposable
+    public class PixelsSliceData : ISliceData
     {
         #region Fields
 
@@ -75,11 +75,6 @@ namespace Assets.Game.Field.Generators.DataContracts
             var pix = _pixels[index];
 
             return (ushort)(pix.r + pix.g * 256);
-        }
-
-        public void Dispose()
-        {
-            _pixels = null;
         }
 
         #endregion

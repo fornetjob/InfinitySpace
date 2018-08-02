@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 
 using System.Collections;
+using Assets.GameDebug;
 
 namespace Assets.Game.Field.Generators.Iterators
 {
@@ -32,9 +33,24 @@ namespace Assets.Game.Field.Generators.Iterators
         private GenerateRectInfo
             _info;
 
+        /// <summary>
+        /// Отладчик
+        /// </summary>
+        private IGenerationDebug
+            _debug;
+
         #endregion
 
         #region Public methods
+
+        /// <summary>
+        /// Установить отладчик
+        /// </summary>
+        /// <param name="debug"></param>
+        public void SetDebug(IGenerationDebug debug)
+        {
+            _debug = debug;
+        }
 
         /// <summary>
         /// Добавить задания на генерацию
@@ -51,6 +67,11 @@ namespace Assets.Game.Field.Generators.Iterators
             for (int i = 0; i < infos.Length; i++)
             {
                 _rects.Enqueue(infos[i]);
+            }
+
+            if (_debug != null)
+            {
+                _debug.OnBeginGenerate();
             }
         }
 
@@ -108,6 +129,11 @@ namespace Assets.Game.Field.Generators.Iterators
                 if (_line.MoveNext())
                 {
                     return true;
+                }
+
+                if (_debug != null)
+                {
+                    _debug.OnEndGenerate();
                 }
 
                 Reset();

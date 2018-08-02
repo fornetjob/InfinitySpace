@@ -60,8 +60,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - CellSize: 100
-    - PosX: 4700
-    - PosY: 6600
+    - PosX: 3900
+    - PosY: 5700
+    - Seed: 2.0742441e+9
     - Width: 100
     - _BumpScale: 1
     - _Cutoff: 0.5

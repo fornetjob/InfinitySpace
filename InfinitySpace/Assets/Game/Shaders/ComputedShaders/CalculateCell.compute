@@ -1,16 +1,42 @@
 ﻿#pragma kernel Calculate
-#include "Assets/Game/Shaders/Tools.cginc"
 
 RWStructuredBuffer<int> CellBuffer;
 
 int PosX;
 int PosY;
 
-int CellSize;
+uint Seed;
 int Width;
 
-[numthreads(1, 1, 1)]
+[numthreads(3, 1, 1)]
 void Calculate(uint id: SV_DispatchThreadID)
 {
-    CellBuffer[id] = CalculateRating(Width, CellSize, PosX, PosY, id);
+    const uint WorldSize = 1000000;
+    const uint PrimeX = 1619;
+    const uint PrimeY = 31337;
+    const uint HashMod = 30000;
+    const uint MaxRating = 10001;
+    const uint CellSize = 100;
+    const int CellLenght = 100 * 100;
+
+    uint cellPos = (id / CellLenght);
+
+    uint cellX = (cellPos % 10) * CellSize;
+    uint cellY = (cellPos / 10) * CellSize;
+
+    uint sId = id % CellLenght;
+
+    uint x = WorldSize + PosX + cellX + sId % CellSize;
+    uint y = WorldSize + PosY + cellY + (sId / CellSize) % CellSize;
+
+    uint hash = Seed;
+
+    hash += x * PrimeX;
+    hash += y * PrimeY;
+    hash = (hash * hash * 60493) % HashMod + 1;
+
+    hash *= step(hash, 10001);
+
+    CellBuffer[id] = hash;
+
 }
