@@ -9,73 +9,29 @@ namespace Assets.Game.Editor.Tests.DataContracts
     /// </summary>
     public class SortCells
     {
-        #region Contants
-
-        /// <summary>
-        /// Количество потоков для ComputeShader
-        /// </summary>
-        public const int ShaderThreadCount = 1;
-
-        /// <summary>
-        /// Максимальный размер сортировки
-        /// </summary>
         private const int MaxSortLength = 20;
 
-        #endregion
-
-        #region Fields
-
-        /// <summary>
-        /// Массив позиций
-        /// </summary>
         private Vector3Int[]
             _posData = new Vector3Int[MaxSortLength];
 
-        /// <summary>
-        /// Массив значений
-        /// </summary>
         private int[]
             _valuesData = new int[2];
 
-        /// <summary>
-        /// Массив дистанций
-        /// </summary>
         private int[]
             _distanceData = new int[MaxSortLength];
 
-        /// <summary>
-        /// Буфер значений
-        /// </summary>
         private ComputeBuffer
             _valuesBuffer = new ComputeBuffer(MaxSortLength, 4);
 
-        /// <summary>
-        /// Буфер дистанций
-        /// </summary>
         private ComputeBuffer
             _distanceBuffer = new ComputeBuffer(MaxSortLength, 4);
 
-        /// <summary>
-        /// Буфер позиций
-        /// </summary>
         private ComputeBuffer
             _posBuffer = new ComputeBuffer(MaxSortLength, 4 * 3);
 
-        /// <summary>
-        /// Результаты сортировки
-        /// </summary>
         private SortedCell[]
             _results = new SortedCell[MaxSortLength];
 
-        #endregion
-
-        #region Public methods
-
-        /// <summary>
-        /// Сортировать
-        /// </summary>
-        /// <param name="size">Размер поля для сортировки</param>
-        /// <returns>Результаты сортировки</returns>
         public SortedCell[] Sort(int size)
         {
             Debug.Log(SystemInfo.supportsComputeShaders);
@@ -106,7 +62,7 @@ namespace Assets.Game.Editor.Tests.DataContracts
             _valuesBuffer.SetData(_valuesData);
             _distanceBuffer.SetData(_distanceData);
 
-            shader.Dispatch(kernelIndex, length / ShaderThreadCount, 1, 1);
+            shader.Dispatch(kernelIndex, length / ResourcesAccess.ShaderThreadCount, 1, 1);
 
             timer.Stop();
 
@@ -136,22 +92,12 @@ namespace Assets.Game.Editor.Tests.DataContracts
             return _results;
         }
 
-        #endregion
-
-        #region Private methods
-
-        /// <summary>
-        /// Очистить значения
-        /// </summary>
         private void ClearValuesData()
         {
             _valuesData[0] = SettingsAccess.MaxRating;
             _valuesData[1] = 0;
         }
 
-        /// <summary>
-        /// Очистить список дистанций
-        /// </summary>
         private void ClearDistanceData()
         {
             for (int i = 0; i < _distanceData.Length; i++)
@@ -159,7 +105,5 @@ namespace Assets.Game.Editor.Tests.DataContracts
                 _distanceData[i] = SettingsAccess.MaxRating;
             }
         }
-
-        #endregion
     }
 }

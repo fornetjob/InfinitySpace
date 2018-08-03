@@ -60,7 +60,7 @@ namespace Assets.Game.Access.Editor
 
             var type = component.GetType();
 
-            var fields = ReflectionTool.GetAllFields<MappingAttribute>(type);
+            var fields = EditorTool.GetAllFields<MappingAttribute>(type);
 
             for (int i = 0; i < fields.Count; i++)
             {

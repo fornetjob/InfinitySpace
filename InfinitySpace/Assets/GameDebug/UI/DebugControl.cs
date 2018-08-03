@@ -16,7 +16,7 @@ namespace Assets.GameDebug.UI
         #region Mappings
 
         /// <summary>
-        /// Маппинг на текст отладки
+        /// Маппинг на мобильное управление
         /// </summary>
         [Mapping]
         [SerializeField]
@@ -28,7 +28,7 @@ namespace Assets.GameDebug.UI
         #region Fields
 
         /// <summary>
-        /// Счётчик фпс
+        /// Маппинг на счётчик
         /// </summary>
         private FpsCounter
             _fpsCounter = new FpsCounter();

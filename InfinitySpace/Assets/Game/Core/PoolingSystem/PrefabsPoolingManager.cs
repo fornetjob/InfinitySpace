@@ -17,9 +17,6 @@ namespace Assets.Game.Core.PoolingSystem
     {
         #region Fields
 
-        /// <summary>
-        /// Объект синхронизации
-        /// </summary>
         private object
             _lockObj = new object();
 

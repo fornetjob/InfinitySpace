@@ -4,17 +4,8 @@ using System.Reflection;
 
 namespace Assets.Game.Editor.Tools
 {
-    /// <summary>
-    /// Инструменты для рефлексии
-    /// </summary>
-    public static class ReflectionTool
+    public static class EditorTool
     {
-        /// <summary>
-        /// Возвращает списпок полей, содержащих атрибут
-        /// </summary>
-        /// <typeparam name="TAttr">Тип атрибута</typeparam>
-        /// <param name="type">Анализируемый тип</param>
-        /// <returns>Списпок полей и их атрибутов</returns>
         public static List<KeyValuePair<FieldInfo, TAttr>> GetAllFields<TAttr>(Type type)
             where TAttr : System.Attribute
         {
@@ -42,13 +33,6 @@ namespace Assets.Game.Editor.Tools
             return result;
         }
 
-        /// <summary>
-        /// Получить значение поле по названию
-        /// </summary>
-        /// <typeparam name="T">Тип возвращаемого поля</typeparam>
-        /// <param name="obj">Анализируемый объект</param>
-        /// <param name="name">Имя поля</param>
-        /// <returns>Значение поля</returns>
         public static T GetField<T>(object obj, string name)
         {
             var type = obj.GetType();

@@ -7,11 +7,11 @@ using Assets.Game.Field.Cells;
 using Assets.Game.Field.Generators;
 using Assets.Game.Field.Generators.DataContracts;
 using Assets.Game.Field.Items;
+using Assets.Game.Inputs;
 using Assets.Game.Inputs.Base;
 using Assets.Game.Tools;
 using Assets.Game.UI.Controls;
 using Assets.GameDebug;
-
 using UnityEngine;
 
 namespace Assets.Game.Field
@@ -20,7 +20,7 @@ namespace Assets.Game.Field
     /// Поведение поля
     /// </summary>
     [RequireComponent(typeof(Camera))]
-    public class FieldBehaviour : MonoBehaviour
+    public class FieldBehaviour:MonoBehaviour
     {
         #region Mappings
 
@@ -77,7 +77,7 @@ namespace Assets.Game.Field
         /// </summary>
         private ushort
             _playerRating;
-
+        
         /// <summary>
         /// Предыдущий прямоугольник камеры
         /// </summary>
@@ -91,20 +91,17 @@ namespace Assets.Game.Field
             _isInited = false;
 
         /// <summary>
-        /// Координаты текущей ячейки игрока на поле
+        /// Координаты текущая ячейки игрока на поле
         /// </summary>
         private Vector2Int
             _currentCellPosition;
 
         /// <summary>
-        /// Координаты текущей позиции игрока на поле
+        /// Координаты текущей позиция игрока на поле
         /// </summary>
-        private Vector2Int
+        private Vector2Int 
             _currentCellItemPosition;
 
-        /// <summary>
-        /// Управление игроком
-        /// </summary>
         private IPlayerInput
             _input;
 
@@ -139,8 +136,6 @@ namespace Assets.Game.Field
         /// </summary>
         /// <param name="zoom">Зум поля</param>
         /// <param name="progress">Прогресс инициализации</param>
-        /// <param name="input">Управление игроком</param>
-        /// <param name="debug">Отладка</param>
         public void Init(ZoomControl zoom, ProgressBar progress, IPlayerInput input, IGameDebug debug)
         {
             // Подпишемся на изменения зума
@@ -197,9 +192,9 @@ namespace Assets.Game.Field
             progress.Begin(() => _generator.GetProgress(), generationString, OnEndInit);
         }
 
-        #endregion
+#endregion
 
-        #region Event handlers
+#region Event handlers
 
         /// <summary>
         /// Событие окончания генерации куска поля
@@ -297,10 +292,10 @@ namespace Assets.Game.Field
             }
         }
 
-        #endregion
+#endregion
 
-        #region Private methods
-
+#region Private methods
+        
         /// <summary>
         /// Установить текущую позицию поля и игрока
         /// </summary>
@@ -310,7 +305,7 @@ namespace Assets.Game.Field
 
             if (_zoom.IsCellsView())
             {
-                _tr.position = SettingsAccess.ConvertToWorldPosition(_currentCellPosition + Vector2Int.one * SettingsAccess.HalfCellPxSize, _zoom.GetZoomPrecision());
+                _tr.position = SettingsAccess.ConvertToWorldPosition(_currentCellPosition + Vector2Int.one * SettingsAccess.HalfCellPxSize , _zoom.GetZoomPrecision());
             }
             else
             {
@@ -442,6 +437,6 @@ namespace Assets.Game.Field
             _prevRect = null;
         }
 
-        #endregion
+#endregion
     }
 }

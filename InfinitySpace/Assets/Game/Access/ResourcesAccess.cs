@@ -28,6 +28,11 @@ namespace Assets.Game.Access
         #region Properties
 
         /// <summary>
+        /// Количество потоков для ComputeShader
+        /// </summary>
+        public const int ShaderThreadCount = 1;
+
+        /// <summary>
         /// Шейдеры для генерации поля
         /// </summary>
         public ComputeShader CalculateShader;

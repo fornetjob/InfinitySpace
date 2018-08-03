@@ -1,7 +1,5 @@
 ﻿using Assets.Game.Tools;
-
 using NUnit.Framework;
-
 using UnityEngine;
 
 namespace Assets.Game.Editor.Tests
