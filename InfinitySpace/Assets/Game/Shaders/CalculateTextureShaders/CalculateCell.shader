@@ -26,7 +26,7 @@
 			{
 				int id = abs(floor(i.pos.x) + floor(i.pos.y) * Width);
 
-				int rating = abs(CalcRating(Seed, id, PosX, PosY));
+				int rating = CalcRating(Seed, id, PosX, PosY);
 
 				return fixed4(rating % 256 / 256.0, floor(rating / 256) / 256.0, 0, 1);
 			}

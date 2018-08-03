@@ -1,13 +1,12 @@
 ﻿using Assets.Game.Field.Base;
-using Assets.Game.Field.Cells;
 using Assets.Game.Field.Generators.DataContracts;
 using Assets.Game.Field.Generators.Iterators;
+using Assets.GameDebug;
 
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
-using System;
-using Assets.GameDebug;
 
 namespace Assets.Game.Field.Generators.Base
 {
@@ -54,6 +53,11 @@ namespace Assets.Game.Field.Generators.Base
 
         #region Public methods
 
+        /// <summary>
+        /// Добавить отладчик
+        /// </summary>
+        /// <param name="debug">Отладчик</param>
+        /// <returns></returns>
         public NoiseGeneratorBase SetDebug(IGenerationDebug debug)
         {
             _rectIterator.SetDebug(debug);

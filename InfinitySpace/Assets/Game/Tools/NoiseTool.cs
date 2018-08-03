@@ -1,10 +1,18 @@
 ﻿using Assets.Game.Access;
+
 using UnityEngine;
 
 namespace Assets.Game.Tools
 {
+    /// <summary>
+    /// Генератор шума
+    /// </summary>
     public static class NoiseTool
     {
+        /// <summary>
+        /// Возвращает случайный рейтинг игрока
+        /// </summary>
+        /// <returns></returns>
         public static ushort GetRandomPlayerRating()
         {
             uint seed = (uint)Random.Range(0, int.MaxValue);
@@ -26,6 +34,13 @@ namespace Assets.Game.Tools
             return (ushort)Random.Range(1, SettingsAccess.MaxRating);
         }
 
+        /// <summary>
+        /// Возвращает рейтинг планеты
+        /// </summary>
+        /// <param name="seed">Сид</param>
+        /// <param name="pos">Ячейка</param>
+        /// <param name="id">Позиция</param>
+        /// <returns></returns>
         public static ushort GetRandomPlanetRating(uint seed, Vector2Int pos, int id)
         {
             const int PrimeX = 1619;
