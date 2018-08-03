@@ -22,8 +22,8 @@
 
 ### Генерация поля
 
-Для генерации поля используются три реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs).
-Для тестирования режимов необходимо переключить настройки:
+Для генерации поля используются три реализации базового класса [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs). Если какая либо из платформ не поддерживается, необходимо добавить новую реализацию  [NoiseGeneratorBase](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/Base/NoiseGeneratorBase.cs), либо использовать [CpuNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CpuNoiseGenerator.cs), у которого нет требований к платформе.
+Для тестирования режимов необходимо переключить настройки, либо загрузить один из билдов под Windows из репозитория:
 
 ![](https://d.radikal.ru/d09/1808/6a/681c71264994.png)
 
@@ -38,7 +38,7 @@
     * Современные консоли (Sony PS4 и Microsoft Xbox One)
 
 #### [CustomRenderTextureNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CustomRenderTextureNoiseGenerator.cs)
-Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/CalculateTextureShaders/CalculateCell.shader).
+Генерация рейтингов планет с помощью фрагментного шейдера для старых версий Android.  Шейдер [тут](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Shaders/Tools.cginc).
 
 #### [CpuNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CpuNoiseGenerator.cs)
 Генерация рейтингов планет "налету", платформонезависимая реализация.
@@ -46,11 +46,11 @@
 ### Организация поля
 
 * **Настройки в [SettingsAccess](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Access/SettingsAccess.cs)**
-    * Размер ячейки в позициях: CellPxSize = 100
-    * Размер поля в ячейках: FieldSize = 100
-    * Полностью генирируемый размер ячеек вокруг игрока: FullGeneratedCellsRadiusSize = 3
-    * Количество видимых игроку планет, в расширенном режиме: MaxAdvancedVisiblePlanet = 20
-    * Режим отладки, отображется фпс, время генерации и поиска: IsDebugMode = true
+    * CellPxSize = 100 - размер ячейки в позициях.
+    * FieldSize = 100 - размер поля в ячейках.
+    * FullGeneratedCellsRadiusSize = 3 - полностью генирируемый размер ячеек вокруг игрока.
+    * MaxAdvancedVisiblePlanet = 20 - количество видимых игроку планет, в расширенном режиме.
+    * IsDebugMode = true - режим отладки, отображется фпс, время генерации и поиска.
 
 * **Классы**
     * [CellCollection](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/CellCollection.cs): содержит перезаписываемый массив размером 100 * 100 для хранения ячеек и перезаписываемый массив размером 3 * 3 для хранения рейтингов.
@@ -62,7 +62,7 @@
 
 * **Принцип работы**
     * Задаётся случайная позиция и рейтинг игрока на поле.
-    * В процессе генерации с помощью одного из механизмов ([ComputedShaderNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/ComputedShaderNoiseGenerator.cs) или [CustomRenderTextureNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CustomRenderTextureNoiseGenerator.cs)) создаётся массив ячеек 100х100 в каждой из которых находится 100х100 рейтингов планет. Но все рейтинги загружаются только в 9 ячеек вокруг игрока, а в остальные загружаются 20 самых близких к рейтингу игрока рейтингов планет.
+    * В процессе генерации с помощью одного из механизмов ([ComputedShaderNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/ComputedShaderNoiseGenerator.cs),  [CustomRenderTextureNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CustomRenderTextureNoiseGenerator.cs) или [CpuNoiseGenerator](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Generators/CpuNoiseGenerator.cs)) создаётся массив ячеек 100х100 в каждой из которых находится 100х100 рейтингов планет. Но все рейтинги загружаются только в 9 ячеек вокруг игрока, а в остальные загружаются 20 самых близких к рейтингу игрока рейтингов планет.
     * Берём текущую область отображения с помощью [ZoomControl](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/UI/Controls/ZoomControl.cs).
     * Если это обычный режим отображения - показываем планеты вокруг игрока.
     * Если это особый режим отображения - вызываем визитор [SortedCellsVisitor](https://github.com/fornetjob/InfinitySpace/blob/master/InfinitySpace/Assets/Game/Field/Cells/SortedCellsVisitor.cs), который ходит по спирали вокруг игрока и вычисляет первые 20 ближайших по рейтингу планет.
@@ -86,17 +86,17 @@
 * **PC**
     * Процессор i7-5930
     * Видео-карта GTX 980 Ti
-* **Phone**
+* **Android**
    * [HTC One](https://www.htc.com/ru/smartphones/htc-one-m7/)
 
-Генератор     |Платформа|Предварительная генерация всего поля|Генерация разницы при передвижении|% от ComputedShader|
+Генератор     |Платформа|Предварительная генерация всего поля|Генерация разницы при передвижении|% от ComputedShader PC|
 --------------|---------|------------------------------------|----------------------------------|-------------------|
 ComputedShader|PC       |~2800ms                             |~50ms                             |100%|
-ComputedShader|Phone|-|-|-|
+ComputedShader|Android|-|-|-|
 RenderTexture|PC|~7300ms|~150ms|~261%|
-RenderTexture|Phone|~15200|~170|~542%|
+RenderTexture|Android|~15200ms|~170ms|~542%|
 CPU|PC|~5700ms|~30ms|~203%|
-CPU|Phone|~37200ms|~50ms|~1328%|
+CPU|Android|~37200ms|~50ms|~1328%|
 
 ### Что можно улучшить и на что не хватило времени
 
@@ -106,7 +106,8 @@ CPU|Phone|~37200ms|~50ms|~1328%|
 * Упростить реализацию в классе CellCollection.
 * Разнести генерируемые ошибки в отдельные классы.
 * Если среди игроков будут преобладать платформы с поддержкой ComputedShader, можно доработать алгоритм генерации поля, чтобы выдавать сразу топ-20 рейтингов для ячеек, без необходимости выгружать данные и делать эту проверку на цпу.
-* Добавить тесты на генераторы полей, для проверки различных способов оптимизации времени генерации (тесты были, но из за внесения изменения в реализацию, часть стала неактуальна и не была включена в конечную сборку).
+* Добавить тесты на генераторы полей, для проверки различных способов оптимизации времени генерации (тесты были, но из за внесения изменения в реализацию часть стала неактуальна и не была включена в конечную сборку).
+* Для генерации разницы при передвижении можно использовать CpuNoiseGenerator, так как у него меньше всего накладных расходов на генерацию небольших дельт.
 * Добавить автоматический маппинг для ресурсов в класс ResourcesAccess.
 * Перенести отладочную информацию для поля из FieldBehaviourEditor в DebugControl.
 * Сделать прямоугольную камеру.
