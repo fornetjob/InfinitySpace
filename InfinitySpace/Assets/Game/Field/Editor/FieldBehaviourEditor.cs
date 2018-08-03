@@ -2,18 +2,33 @@
 using Assets.Game.Field.Cells;
 using Assets.Game.Tools;
 using Assets.Game.UI.Controls;
-using System.Reflection;
+
 using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Game.Field.Editor
 {
+    /// <summary>
+    /// Редактор поля
+    /// </summary>
     [CustomEditor(typeof(FieldBehaviour))]
     public class FieldBehaviourEditor: UnityEditor.Editor
     {
+        #region Fields
+
+        /// <summary>
+        /// Задержка между перерисовкой
+        /// </summary>
         private CheckDelay
             _check = new CheckDelay(1000);
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Поле
+        /// </summary>
         public FieldBehaviour Target
         {
             get
@@ -21,6 +36,10 @@ namespace Assets.Game.Field.Editor
                 return (FieldBehaviour)target;
             }
         }
+
+        #endregion
+
+        #region Game
 
         void OnSceneGUI()
         {
@@ -30,18 +49,25 @@ namespace Assets.Game.Field.Editor
             }
         }
 
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Отладочная информация поля
+        /// </summary>
         private void DrawHelpers()
         {
-            var cells = EditorTool.GetField<CellCollection>(Target, "_cells");
+            var cells = ReflectionTool.GetField<CellCollection>(Target, "_cells");
 
             if (cells == null)
             {
                 return;
             }
 
-            var currentCellPos = EditorTool.GetField<Vector2Int>(Target, "_currentCellPosition");
+            var currentCellPos = ReflectionTool.GetField<Vector2Int>(Target, "_currentCellPosition");
 
-            var zoom = EditorTool.GetField<ZoomControl>(Target, "_zoom");
+            var zoom = ReflectionTool.GetField<ZoomControl>(Target, "_zoom");
 
             var precision = zoom.GetZoomPrecision();
 
@@ -62,6 +88,13 @@ namespace Assets.Game.Field.Editor
             }
         }
 
+        /// <summary>
+        /// Нарисовать прямоугольник
+        /// </summary>
+        /// <param name="rect">Прямоугольник</param>
+        /// <param name="color">Цвет</param>
+        /// <param name="duration">Время</param>
+        /// <param name="precision">Точность</param>
         private void DrawRect(Rect rect, Color color, float duration, float precision)
         {
             float deflateValue = precision;
@@ -77,5 +110,7 @@ namespace Assets.Game.Field.Editor
             Debug.DrawLine(new Vector2(xMax, yMax), new Vector2(xMin, yMax), color, duration);
             Debug.DrawLine(new Vector2(xMin, yMax), new Vector2(xMin, yMin), color, duration);
         }
+
+        #endregion
     }
 }
